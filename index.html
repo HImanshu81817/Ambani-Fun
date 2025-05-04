@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spend Mukesh Ambani's Money</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #292F36;
+            --light: #F7FFF7;
+            --accent: #FFE66D;
+            --luxury: #C5A3FF;
+            --everyday: #A5FFD6;
+            --indian: #FFA69E;
+            --supercars: #FF9F1C;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            padding-bottom: 80px;
+            color: var(--dark);
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .money-display {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.15);
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-gap: 25px;
+            padding: 0 25px;
+        }
+        
+        .item {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .item-image-container {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .item:hover .item-image {
+            transform: scale(1.05);
+        }
+        
+        .item-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+        }
+        
+        .category-everyday {
+            background-color: var(--everyday);
+            color: var(--dark);
+        }
+        
+        .category-luxury {
+            background-color: var(--luxury);
+            color: var(--dark);
+        }
+        
+        .category-extravagant {
+            background: linear-gradient(to right, #ff8a00, #e52e71);
+            color: white;
+        }
+        
+        .category-indian {
+            background-color: var(--indian);
+            color: var(--dark);
+        }
+        
+        .category-supercars {
+            background-color: var(--supercars);
+            color: var(--dark);
+        }
+        
+        .item-info {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .item-name {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .item-price {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 20px;
+            margin-top: auto;
+        }
+        
+        .control-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .buy-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .buy-btn:hover {
+            background-color: #3dbeb6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .sell-btn {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .sell-btn:hover {
+            background-color: #e55a5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .sell-btn:disabled, .buy-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .item-quantity {
+            font-size: 1.3rem;
+            width: 60px;
+            text-align: center;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            padding: 5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .receipt {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .receipt h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1rem;
+        }
+        
+        .receipt-total {
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px solid var(--dark);
+            font-size: 1.3rem;
+        }
+        
+        .show-receipt-btn {
+            display: block;
+            margin: 40px auto;
+            padding: 15px 40px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .show-receipt-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: linear-gradient(to right, #e55a5a, #3dbeb6);
+        }
+        
+        .receipt-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .receipt-close:hover {
+            color: var(--primary);
+            background-color: #f5f5f5;
+        }
+        
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: white;
+            border: 2px solid #eee;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: var(--dark);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+        }
+        
+        .filter-btn[data-filter="everyday"]:hover, 
+        .filter-btn[data-filter="everyday"].active {
+            background-color: var(--everyday);
+        }
+        
+        .filter-btn[data-filter="luxury"]:hover, 
+        .filter-btn[data-filter="luxury"].active {
+            background-color: var(--luxury);
+        }
+        
+        .filter-btn[data-filter="extravagant"]:hover, 
+        .filter-btn[data-filter="extravagant"].active {
+            background: linear-gradient(to right, #ff8a00, #e52e71);
+            color: white;
+        }
+        
+        .filter-btn[data-filter="indian"]:hover, 
+        .filter-btn[data-filter="indian"].active {
+            background-color: var(--indian);
+        }
+        
+        .filter-btn[data-filter="supercars"]:hover, 
+        .filter-btn[data-filter="supercars"].active {
+            background-color: var(--supercars);
+        }
+        
+        .watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            font-size: 0.9rem;
+            color: #aaa;
+            opacity: 0.8;
+            background: rgba(255,255,255,0.7);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-gap: 20px;
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .money-display {
+                font-size: 2.8rem;
+                padding: 8px 20px;
+            }
+            
+            .filter-controls {
+                padding: 0 15px;
+                justify-content: flex-start;
+                overflow-x: auto;
+                white-space: nowrap;
+                margin: 20px 0;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .item-image-container {
+                height: 180px;
+            }
+            
+            .item-name {
+                font-size: 1.2rem;
+            }
+            
+            .item-price {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .item {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        /* Delay animations for grid items */
+        .item:nth-child(1) { animation-delay: 0.1s; }
+        .item:nth-child(2) { animation-delay: 0.2s; }
+        .item:nth-child(3) { animation-delay: 0.3s; }
+        .item:nth-child(4) { animation-delay: 0.4s; }
+        .item:nth-child(5) { animation-delay: 0.5s; }
+        .item:nth-child(6) { animation-delay: 0.6s; }
+        .item:nth-child(7) { animation-delay: 0.7s; }
+        .item:nth-child(8) { animation-delay: 0.8s; }
+        .item:nth-child(9) { animation-delay: 0.9s; }
+        .item:nth-child(10) { animation-delay: 1s; }
+        .item:nth-child(11) { animation-delay: 1.1s; }
+        .item:nth-child(12) { animation-delay: 1.2s; }
+        .item:nth-child(13) { animation-delay: 1.3s; }
+        .item:nth-child(14) { animation-delay: 1.4s; }
+        .item:nth-child(15) { animation-delay: 1.5s; }
+        .item:nth-child(16) { animation-delay: 1.6s; }
+        .item:nth-child(17) { animation-delay: 1.7s; }
+        .item:nth-child(18) { animation-delay: 1.8s; }
+        .item:nth-child(19) { animation-delay: 1.9s; }
+        .item:nth-child(20) { animation-delay: 2s; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Spend Mukesh Ambani's Money</h1>
+        <div class="subtitle">How would you spend ₹7.5 trillion?</div>
+        <div class="money-display" id="money-display">₹7,500,000,000,000</div>
+    </div>
+    
+    <div class="filter-controls">
+        <button class="filter-btn active" data-filter="all">All Items</button>
+        <button class="filter-btn" data-filter="everyday">Everyday</button>
+        <button class="filter-btn" data-filter="luxury">Luxury</button>
+        <button class="filter-btn" data-filter="extravagant">Extravagant</button>
+        <button class="filter-btn" data-filter="indian">Indian Special</button>
+        <button class="filter-btn" data-filter="supercars">Supercars</button>
+    </div>
+    
+    <div class="container" id="items-container">
+        <!-- Items will be dynamically added here -->
+    </div>
+    
+    <button class="show-receipt-btn" id="show-receipt">Show Receipt</button>
+    
+    <div class="receipt" id="receipt">
+        <span class="receipt-close" id="close-receipt">×</span>
+        <h2>Your Shopping Receipt</h2>
+        <div id="receipt-items">
+            <!-- Receipt items will be added here -->
+        </div>
+        <div class="receipt-total">
+            <span>Total Spent:</span>
+            <span id="total-spent">₹0</span>
+        </div>
+        <div class="receipt-total">
+            <span>Money Left:</span>
+            <span id="money-left">₹7,500,000,000,000</span>
+        </div>
+    </div>
+    
+    <div class="watermark">Created with ❤️ for educational purposes</div>
+
+    <script>
+        // Initial balance (₹7.5 trillion, approx $100 billion)
+        const initialBalance = 7500000000000;
+        let currentBalance = initialBalance;
+        
+        // Items data with Indian context (prices reduced by 20% from original)
+        const items = [
+            // Everyday Items
+            { id: 1, name: "Vada Pav", price: 12, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950", quantity: 0, category: "everyday" },
+            { id: 2, name: "Masala Chai", price: 16, image: "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9", quantity: 0, category: "everyday" },
+            { id: 3, name: "Bollywood Movie Ticket", price: 240, image: "https://images.unsplash.com/photo-1542204165-65bf26472b9b", quantity: 0, category: "everyday" },
+            { id: 4, name: "Auto Rickshaw Ride", price: 80, image: "https://images.unsplash.com/photo-1588943211346-0908a1fb0b01", quantity: 0, category: "everyday" },
+            { id: 5, name: "Month of Jio Data", price: 239, image: "https://images.unsplash.com/photo-1598128558393-70ff21433be0", quantity: 0, category: "everyday" },
+            
+            // Mid-range Items
+            { id: 6, name: "iPhone 14 Pro", price: 103920, image: "https://images.unsplash.com/photo-1664478546384-d57ffe74a78c", quantity: 0, category: "luxury" },
+            { id: 7, name: "Royal Enfield Bike", price: 120000, image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39", quantity: 0, category: "luxury" },
+            { id: 8, name: "Sabyasachi Lehenga", price: 240000, image: "https://images.unsplash.com/photo-1595361315083-58fc3c6ee12b", quantity: 0, category: "indian" },
+            { id: 9, name: "Gold Jewelry Set", price: 400000, image: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a", quantity: 0, category: "indian" },
+            { id: 10, name: "1 BHK in Mumbai", price: 8000000, image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf", quantity: 0, category: "luxury" },
+            
+            // Luxury Items
+            { id: 11, name: "Luxury Sedan", price: 6000000, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e", quantity: 0, category: "luxury" },
+            { id: 12, name: "Rolex Watch", price: 1600000, image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49", quantity: 0, category: "luxury" },
+            { id: 13, name: "Private Jet (Small)", price: 200000000, image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd", quantity: 0, category: "extravagant" },
+            { id: 14, name: "Luxury Yacht", price: 600000000, image: "https://images.unsplash.com/photo-1502759683299-cdcd6974244f", quantity: 0, category: "extravagant" },
+            { id: 15, name: "Cricket IPL Team", price: 7680000000, image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e", quantity: 0, category: "indian" },
+            
+            // Extravagant Indian Items
+            { id: 16, name: "Antilia (Replica)", price: 104000000000, image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914", quantity: 0, category: "indian" },
+            { id: 17, name: "Taj Mahal (Replica)", price: 600000000000, image: "https://images.unsplash.com/photo-1564507592333-c60657eea523", quantity: 0, category: "indian" },
+            { id: 18, name: "Private Island", price: 30000000000, image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6", quantity: 0, category: "extravagant" },
+            { id: 19, name: "Space Tourism Trip", price: 300000000, image: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031", quantity: 0, category: "extravagant" },
+            { id: 20, name: "ISRO Satellite Launch", price: 3000000000, image: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9", quantity: 0, category: "indian" },
+            
+            // More Indian Specific Items
+            { id: 21, name: "Kashmiri Pashmina Shawl", price: 40000, image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91", quantity: 0, category: "indian" },
+            { id: 22, name: "Mysore Silk Saree", price: 80000, image: "https://images.unsplash.com/photo-1598301257983-0c2ab7a50d5e", quantity: 0, category: "indian" },
+            { id: 23, name: "Vintage Royal Haveli", price: 240000000, image: "https://images.unsplash.com/photo-1586023492129-3d9cdfc2ae71", quantity: 0, category: "indian" },
+            { id: 24, name: "Kohinoor Diamond (Replica)", price: 12000000000, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f", quantity: 0, category: "indian" },
+            { id: 25, name: "Entire Tea Plantation", price: 1800000000, image: "https://images.unsplash.com/photo-1500353391678-d7b57979d6d2", quantity: 0, category: "indian" },
+            
+            // Additional Items
+            { id: 26, name: "Entire Bollywood Studio", price: 6000000000, image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c", quantity: 0, category: "indian" },
+            { id: 27, name: "Private 5G Network", price: 1200000000, image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12", quantity: 0, category: "extravagant" },
+            { id: 28, name: "Mega Solar Farm", price: 2400000000, image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d", quantity: 0, category: "extravagant" },
+            { id: 29, name: "Year at IIM Business School", price: 2000000, image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1", quantity: 0, category: "indian" },
+            { id: 30, name: "Entire Mall in Delhi", price: 12000000000, image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a", quantity: 0, category: "indian" },
+            
+            // New Luxury Cars (100,000 crore rupees = 1,000,000,000,000)
+            { id: 31, name: "Bugatti La Voiture Noire", price: 1000000000000, image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537", quantity: 0, category: "supercars" },
+            { id: 32, name: "Rolls-Royce Boat Tail", price: 1000000000000, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e", quantity: 0, category: "supercars" },
+            { id: 33, name: "Pagani Zonda HP Barchetta", price: 1000000000000, image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d", quantity: 0, category: "supercars" },
+            { id: 34, name: "Lamborghini Veneno Roadster", price: 1000000000000, image: "https://images.unsplash.com/photo-1547038577-da80abbc4f19", quantity: 0, category: "supercars" },
+            { id: 35, name: "Ferrari 250 GTO", price: 1000000000000, image: "https://images.unsplash.com/photo-1558980394-4c7c9299fe96", quantity: 0, category: "supercars" },
+            { id: 36, name: "Koenigsegg CCXR Trevita", price: 1000000000000, image: "https://images.unsplash.com/photo-1550355291-bbee04a92027", quantity: 0, category: "supercars" },
+            { id: 37, name: "Mercedes-Maybach Exelero", price: 1000000000000, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e", quantity: 0, category: "supercars" },
+            { id: 38, name: "Aston Martin Valkyrie", price: 1000000000000, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e", quantity: 0, category: "supercars" },
+            
+            // More Luxury Items (100,000 crore rupees)
+            { id: 39, name: "Mumbai Penthouse", price: 1000000000000, image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2", quantity: 0, category: "luxury" },
+            { id: 40, name: "Private Concert by AR Rahman", price: 1000000000000, image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745", quantity: 0, category: "indian" },
+            { id: 41, name: "Diamond-Encrusted Saree", price: 1000000000000, image: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3", quantity: 0, category: "indian" },
+            { id: 42, name: "Personal Cricket Stadium", price: 1000000000000, image: "https://images.unsplash.com/photo-1543357480-c60d400e2ef9", quantity: 0, category: "indian" },
+            { id: 43, name: "Vintage Wine Collection", price: 1000000000000, image: "https://images.unsplash.com/photo-1566633806327-68e152aaf26d", quantity: 0, category: "luxury" },
+            { id: 44, name: "Personal Art Gallery", price: 1000000000000, image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3", quantity: 0, category: "luxury" },
+            { id: 45, name: "Personal Airline (Small)", price: 1000000000000, image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05", quantity: 0, category: "extravagant" }
+        ];
+        
+        // Format number as currency (Indian format)
+        function formatCurrency(number) {
+            // Convert number to Indian currency format
+            const formatter = new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+            
+            return formatter.format(number);
+        }
+        
+        // Update money display
+        function updateMoneyDisplay() {
+            document.getElementById('money-display').textContent = formatCurrency(currentBalance);
+            
+            // Change color based on amount
+            const moneyDisplay = document.getElementById('money-display');
+            if (currentBalance > initialBalance * 0.75) {
+                moneyDisplay.style.color = '#4ECDC4'; // Teal
+            } else if (currentBalance > initialBalance * 0.25) {
+                moneyDisplay.style.color = '#FFE66D'; // Yellow
+            } else {
+                moneyDisplay.style.color = '#FF6B6B'; // Red
+            }
+        }
+        
+        // Buy an item
+        function buyItem(itemId) {
+            const item = items.find(item => item.id === itemId);
+            if (currentBalance >= item.price) {
+                item.quantity++;
+                currentBalance -= item.price;
+                updateMoneyDisplay();
+                updateItemQuantity(itemId);
+                updateButtonStates();
+            }
+        }
+        
+        // Sell an item
+        function sellItem(itemId) {
+            const item = items.find(item => item.id === itemId);
+            if (item.quantity > 0) {
+                item.quantity--;
+                currentBalance += item.price;
+                updateMoneyDisplay();
+                updateItemQuantity(itemId);
+                updateButtonStates();
+            }
+        }
+        
+        // Update item quantity display
+        function updateItemQuantity(itemId) {
+            const item = items.find(item => item.id === itemId);
+            document.getElementById(`quantity-${itemId}`).value = item.quantity;
+        }
+        
+        // Update button states (disabled/enabled)
+        function updateButtonStates() {
+            items.forEach(item => {
+                const buyBtn = document.getElementById(`buy-${item.id}`);
+                const sellBtn = document.getElementById(`sell-${item.id}`);
+                
+                if (buyBtn && sellBtn) {
+                    // Disable buy button if not enough money
+                    buyBtn.disabled = currentBalance < item.price;
+                    
+                    // Disable sell button if quantity is 0
+                    sellBtn.disabled = item.quantity === 0;
+                }
+            });
+        }
+        
+        // Update receipt
+        function updateReceipt() {
+            const receiptItems = document.getElementById('receipt-items');
+            receiptItems.innerHTML = '';
+            
+            let totalSpent = 0;
+            
+            items.forEach(item => {
+                if (item.quantity > 0) {
+                    totalSpent += item.price * item.quantity;
+                    
+                    const receiptItem = document.createElement('div');
+                    receiptItem.className = 'receipt-item';
+                    receiptItem.innerHTML = `
+                        <span>${item.name} x${item.quantity}</span>
+                        <span>${formatCurrency(item.price * item.quantity)}</span>
+                    `;
+                    receiptItems.appendChild(receiptItem);
+                }
+            });
+            
+            document.getElementById('total-spent').textContent = formatCurrency(totalSpent);
+            document.getElementById('money-left').textContent = formatCurrency(currentBalance);
+        }
+        
+        // Show receipt
+        function showReceipt() {
+            updateReceipt();
+            document.getElementById('receipt').style.display = 'block';
+        }
+        
+        // Filter items by category
+        function filterItems(category) {
+            const items = document.querySelectorAll('.item');
+            
+            if (category === 'all') {
+                items.forEach(item => {
+                    item.style.display = 'flex';
+                });
+            } else {
+                items.forEach(item => {
+                    if (item.dataset.category.includes(category)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Initialize the app
+        function initApp() {
+            const container = document.getElementById('items-container');
+            
+            // Create item cards
+            items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'item';
+                itemElement.dataset.category = item.category;
+                itemElement.innerHTML = `
+                    <div class="item-image-container">
+                        <img src="${item.image}" alt="${item.name}" class="item-image">
+                        <div class="item-category category-${item.category.split(' ')[0]}">${item.category.split(' ')[0]}</div>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">${formatCurrency(item.price)}</div>
+                    </div>
+                    <div class="item-controls">
+                        <button id="sell-${item.id}" class="control-btn sell-btn" disabled>-</button>
+                        <input type="text" id="quantity-${item.id}" class="item-quantity" value="0" readonly>
+                        <button id="buy-${item.id}" class="control-btn buy-btn">+</button>
+                    </div>
+                `;
+                container.appendChild(itemElement);
+                
+                // Add event listeners
+                document.getElementById(`buy-${item.id}`).addEventListener('click', () => {
+                    buyItem(item.id);
+                });
+                
+                document.getElementById(`sell-${item.id}`).addEventListener('click', () => {
+                    sellItem(item.id);
+                });
+            });
+            
+            // Add event listener for receipt button
+            document.getElementById('show-receipt').addEventListener('click', showReceipt);
+            
+            // Add event listener for receipt close button
+            document.getElementById('close-receipt').addEventListener('click', () => {
+                document.getElementById('receipt').style.display = 'none';
+            });
+            
+            // Add event listeners for filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterItems(btn.dataset.filter);
+                });
+            });
+            
+            // Initialize money display
+            updateMoneyDisplay();
+        }
+        
+        // Start the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
